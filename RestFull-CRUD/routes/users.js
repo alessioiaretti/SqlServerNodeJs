@@ -9,8 +9,22 @@ const config = {
   database: '4DD_22', //(Nome del DB)
 }
 
+/*
+router.get('/attori', function(req, res, next) {
+  sql.connect(config, err => {
+    if(err) console.log(err);  // ... error check
+    
+    // Query
+    let sqlRequest = new sql.Request();  //Oggetto che serve a creare le query
+    sqlRequest.query('select * from dbo.AA_ATTORE', (err, result) => {
+        if (err) console.log(err); // ... error checks
+        res.send(result);  //Invio il risultato
+    });
+  });
+});
+
 /* GET users listing. */
-router.get('/prodotti', function(req, res, next) {
+router.get('/attori', function(req, res, next) {
   sql.connect(config, err => {
     if(err) console.log(err);  // ... error check
     
@@ -22,6 +36,22 @@ router.get('/prodotti', function(req, res, next) {
     });
   });
 });
+
+router.get('/search/:name', function(req, res, next) {
+  sql.connect(config, err => {
+    // ... error check
+    if(err) console.log(err);
+    // Query
+    let sqlRequest = new sql.Request();
+    sqlRequest.query(`select * from [School].[Person] where FirstName = '${req.params.name}'`, (err, result) => {
+        // ... error checks
+        if (err) console.log(err);
+
+        res.send(result);
+    });
+  });
+});
+*/
 
 router.get('/search/:name', function(req, res, next) {
   sql.connect(config, err => {
