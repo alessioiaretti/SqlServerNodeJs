@@ -1,4 +1,22 @@
 extends layout
 
 block content
-  h1 ELENCO UNITA'
+    h2 #{title }
+    table
+        h6
+        thead
+            tr
+                th Unità
+                th Costo
+                th Hit Speed
+        tbody
+            each item in result
+                tr
+                    td   
+                        if link                
+                            a(href=`/search/${item.Unit}`)
+                                | #{item.Unit}
+                        else
+                            #{item.Unit}
+                    td #{item.Cost}
+                    td #{item.Hit_Speed}

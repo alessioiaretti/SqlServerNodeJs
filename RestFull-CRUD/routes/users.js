@@ -1,14 +1,13 @@
-
 var express = require('express');
 var router = express.Router();
 const sql = require('mssql')
 var createError = require('http-errors');
 
 const config = {
-  user: '4DD_22',  //Vostro user name
-  password: 'xxx123##', //Vostra password
-  server: "213.140.22.237",  //Stringa di connessione
-  database: '4DD_22', //(Nome del DB)
+  user: '4DD_22',  
+  password: 'xxx123##',
+  server: "213.140.22.237",
+  database: '4DD_22',
 }
 
 /*
@@ -41,7 +40,6 @@ router.get('/search/:name', function(req, res, next) {
 });
 */
 
-//Function to connect to database and execute query
 let executeQuery = function (res, query, next) {
   sql.connect(config, function (err) {
     if (err) { //Display error page
@@ -57,14 +55,13 @@ let executeQuery = function (res, query, next) {
         sql.close();
         return;
       }
+      console.log(result.recordset);
       res.send(result.recordset); //Il vettore con i dati è nel campo recordset (puoi loggare result per verificare)
       sql.close();
     });
-
   });
 }
 
-/* GET users listing. */
 router.get('/', function (req, res, next) {
   let sqlQuery = "select * from dbo.[cr-unit-attributes]";
   executeQuery(res, sqlQuery, next);
@@ -76,9 +73,9 @@ router.get('/search/:name', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-  // Add a new Unit  
+
   let unit = req.body;
-  if (!unit) {  //Qui dovremmo testare tutti i campi della richiesta
+  if (!unit) { 
     res.status(500).json({success: false, message:'Error while connecting database', error:err});
     return;
   }

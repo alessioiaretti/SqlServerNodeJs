@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    h2 #{title}
+    table
+        h6
+        thead
+            tr
+                th Unità
+                th Costo
+                th Hit_Speed
+        tbody
+                tr
+                    td #{result.Unit}
+                    td #{result.Cost}
+                    td #{result.Hit_Speed}
