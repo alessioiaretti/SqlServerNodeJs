@@ -21,12 +21,12 @@ router.get('/insert', function(req, res, next) {
 
 router.get('/elenco', function(req, res, next) {
     let sqlQuery = "select * from dbo.[cr-unit-attributes]";
-    executeQuery('elenco', 'Elenco Unità:', res, sqlQuery, next);
+    executeQuery('elenco', 'Elenco Unità:', true, res, sqlQuery, next);
 });
 
 router.get('/search/:name', function (req, res, next) {
     let sqlQuery = `select * from dbo.[cr-unit-attributes] where Unit = '${req.params.name}'`;
-    executeQuery('elenco', 'Dettaglio Unità:', res, sqlQuery, next);
+    executeQuery('elenco', 'Dettaglio Unità:', false, res, sqlQuery, next);
 });
 
 router.post('/inserisci', function (req, res, next) {
@@ -37,13 +37,14 @@ router.post('/inserisci', function (req, res, next) {
     }
     let sqlInsert = `INSERT INTO dbo.[cr-unit-attributes] (Unit,Cost,Hit_Speed) 
                         VALUES ('${unit.Unit}','${unit.Cost}','${unit.Hit_Speed}')`;
-    executeQuery('', '', res, sqlInsert, next);
+    executeQuery('', '', false, res, sqlInsert, next);
     res.render('elenco', { title: 'Nuova Unità inserita con successo:', 
-        result: [{Unit: unit.Unit, Cost: unit.Cost, Hit_Speed: unit.Hit_Speed}], link: false
+        result: [{Unit: unit.Unit, Cost: unit.Cost, Hit_Speed: unit.Hit_Speed}], 
+        link: false
     });
 });
 
-let executeQuery = function (tipo, titolo, res, query, next) {
+let executeQuery = function (tipo, titolo, link, res, query, next) {
     sql.connect(config, function (err) {
         if (err) { 
             console.logconsole.log("Error while connecting database :- " + err);
@@ -61,7 +62,7 @@ let executeQuery = function (tipo, titolo, res, query, next) {
             }
 
             if (tipo != ''){
-                res.render(tipo, { title: titolo, result: result.recordset, link: true})
+                res.render(tipo, { title: titolo, result: result.recordset, link: link})
             }
             sql.close();
         });
@@ -69,3 +70,4 @@ let executeQuery = function (tipo, titolo, res, query, next) {
 }
 
 module.exports = router;
+

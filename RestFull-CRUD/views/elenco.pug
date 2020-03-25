@@ -12,11 +12,12 @@ block content
         tbody
             each item in result
                 tr
-                    td   
-                        if link                
+                    if link 
+                        td               
                             a(href=`/search/${item.Unit}`)
                                 | #{item.Unit}
-                        else
-                            #{item.Unit}
+                    else
+                        td #{item.Unit}
+                        
                     td #{item.Cost}
                     td #{item.Hit_Speed}
