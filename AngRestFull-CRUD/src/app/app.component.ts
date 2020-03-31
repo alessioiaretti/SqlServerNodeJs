@@ -24,10 +24,7 @@ export class AppComponent {
   postData : Object;
 
   addUnit (newUnit: HTMLInputElement, newCost: HTMLInputElement, newHitSpeed: HTMLInputElement): boolean {
-      let newData: Unit = new Unit();
-      newData.Unit = newUnit.value;
-      newData.Cost = newCost.value;
-      newData.Hit_Speed = newHitSpeed.value;
+      let newData = new Unit(newUnit.value, newCost.value, newHitSpeed.value);
       let headers =  {headers: new HttpHeaders().set('Content-Type', 'application/json')};
       this.postObserver = this.http.post('https://3000-e4dd8951-c918-46c9-b98e-5c8a043256bb.ws-eu01.gitpod.io/users', JSON.stringify(newData),headers)
 
